@@ -14,6 +14,7 @@ class CustomPipeline:
 
 
 class EstatesSpider(scrapy.Spider):
+    page = 1
     limit = 10
     name = "sreality_estates"
     start_urls = [
@@ -53,6 +54,5 @@ class EstatesSpider(scrapy.Spider):
                 print(f"Reached limit {self.limit}")
                 return
 
-        next_page = response.css('.paging-full .paging-item:last-child a::attr("href")').get()
-        if next_page is not None:
-            yield scrapy.Request("https://sreality.cz" + next_page, meta={"playwright": True})
+        self.page += 1
+        yield scrapy.Request(self.start_urls[0] + "?strana=" + str(self.page), meta={"playwright": True})
