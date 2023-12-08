@@ -1,0 +1,8 @@
+<h1>sreality.cz estates (flats, sell)</h1>
+
+{% for estate in estates %}
+<div class="estate">
+	<h2>{{ estate.title }}</h2>
+	<img src="{{ estate.image_url }}" alt="{{ estate.title }}" />
+</div>
+{% endfor %}
