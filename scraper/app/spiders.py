@@ -41,7 +41,6 @@ class EstatesSpider(scrapy.Spider):
         yield scrapy.Request(self.start_urls[0], meta={"playwright": True})
 
     def parse(self, response):
-        page = response.meta["playwright_page"]
         for estate in response.css(".dir-property-list .property"):
             dot_data = json.loads(estate.css("::attr(data-dot-data)").extract()[0])
             yield {
