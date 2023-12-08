@@ -2,6 +2,7 @@ from _types import TEstate
 from typing import List
 import requests
 import logging
+import spiders
 import time
 
 
@@ -39,3 +40,15 @@ def get_flats_json(per_page, retries=5) -> List[TEstate]:
         )
 
     return estates
+
+
+def get_flats_scrapy(limit) -> List[TEstate]:
+    """
+    Fetch flats using scrapy.
+    """
+    logging.info("Fetching flats using scrapy...")
+
+    spiders.process.crawl(spiders.EstatesSpider, limit=limit)
+    spiders.process.start()
+
+    return spiders.CustomPipeline.items

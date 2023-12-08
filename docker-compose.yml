@@ -28,5 +28,16 @@ services:
     depends_on:
       - db
 
+  scraper:
+    container_name: luxonis-scraper
+    build:
+      context: ./scraper
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-db_postgres}
+      - POSTGRES_USER=${POSTGRES_USER:-user_postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
+    depends_on:
+      - db
+
 volumes:
   db-postgres:
